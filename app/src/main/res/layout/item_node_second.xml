@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    android:id="@+id/rootView"
     android:gravity="center_vertical"
     tools:background="@android:color/holo_blue_light">
 
@@ -16,6 +17,8 @@
         android:textSize="20sp" />
 
     <CheckBox
+        android:id="@+id/checkbox"
+        android:clickable="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

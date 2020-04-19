@@ -1,15 +1,32 @@
 package com.lugq.nodeadapterdemo.adapter
 
+import android.util.Log
 import com.chad.library.adapter.base.BaseNodeAdapter
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.lugq.nodeadapterdemo.entity.FirstNode
 import com.lugq.nodeadapterdemo.entity.SecondNode
+import java.util.ArrayList
 
 class NodeTreeAdapter() : BaseNodeAdapter() {
+    val TAG = NodeTreeAdapter::class.java.simpleName
+
+    private lateinit var mSecondProvider: SecondProvider
 
     init {
+        val mFirstProvider = FirstProvider()
+        mSecondProvider = SecondProvider()
+        mSecondProvider.setSelectedListener(object : SecondProvider.SelectedListener {
+            override fun getSelectedItems(num: Int) {
+                notifyDataSetChanged()
+                val hash = mSecondProvider.getSelectedItems()
+                for (item in hash.iterator()) {
+                    item.key;
+                    Log.i(TAG, "item.key = $item.key")
+                }
+            }
+        })
         addNodeProvider(FirstProvider())
-        addNodeProvider(SecondProvider())
+        addNodeProvider(mSecondProvider)
     }
 
     /**
@@ -25,5 +42,12 @@ class NodeTreeAdapter() : BaseNodeAdapter() {
         return -1
     }
 
+    fun getSelectedItems() {
+        val selectedList: MutableList<BaseNode> = ArrayList()
+
+        mSecondProvider.getSelectedItems()
+
+        mSecondProvider.getSelectedItems()
+    }
 
 }
