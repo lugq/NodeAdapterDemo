@@ -8,11 +8,13 @@ import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lugq.nodeadapterdemo.R
+import com.lugq.nodeadapterdemo.entity.SecondNode
+import com.lugq.nodeadapterdemo.listener.SelectedListener
 import java.util.ArrayList
 
 class SecondProvider : BaseNodeProvider() {
 
-    val mSelectedPositions: SparseBooleanArray = SparseBooleanArray()
+    private val mSelectedPositions: SparseBooleanArray = SparseBooleanArray()
 
     override val itemViewType: Int
         get() = 2
@@ -23,14 +25,9 @@ class SecondProvider : BaseNodeProvider() {
     override val layoutId: Int
         get() = R.layout.item_node_second
 
-    var parentNodePosition: Int? = 0
-
-    fun getParentNodePosition() {
-
-    }
-
     override fun convert(helper: BaseViewHolder, item: BaseNode) {
-        parentNodePosition = getAdapter()?.findParentNode(item)
+        val mSecondNode = item as SecondNode
+        helper.setText(R.id.tvLocation, mSecondNode.title)
 
         val cb = helper.getView<CheckBox>(R.id.checkbox)
 
@@ -53,8 +50,6 @@ class SecondProvider : BaseNodeProvider() {
             mSelectedListener?.getSelectedItems(0)
             //notifyDataSetChanged()
         }
-
-
     }
 
     fun isItemChecked(position: Int): Boolean {
@@ -104,8 +99,4 @@ class SecondProvider : BaseNodeProvider() {
         return hash
     }
 
-    interface SelectedListener {
-        // 返回已选中的个数
-        fun getSelectedItems(num: Int)
-    }
 }

@@ -23,18 +23,20 @@ class MainActivity : AppCompatActivity() {
         adapter.setList(getEntity())
 
 
-
-
     }
 
     private fun getEntity(): List<BaseNode>? {
+        // 一级节点容器
         val list: MutableList<BaseNode> =
             ArrayList()
         for (i in 0..7) {
-            val secondNodeList: MutableList<BaseNode> =
-                ArrayList()
+            // 二级节点容器
+            val secondNodeList: MutableList<BaseNode> = ArrayList()
 
-            secondNodeList.add(SecondNode(null, "地址"))
+            // 二级节点的
+            for (a in 0..4) {
+                secondNodeList.add(SecondNode(null, "地址$i -- $a"))
+            }
 
             val entity = FirstNode(secondNodeList, "First Node $i")
             // 模拟 默认第0个是展开的

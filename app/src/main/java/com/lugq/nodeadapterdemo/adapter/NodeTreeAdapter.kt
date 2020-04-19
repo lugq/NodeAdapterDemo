@@ -5,6 +5,7 @@ import com.chad.library.adapter.base.BaseNodeAdapter
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.lugq.nodeadapterdemo.entity.FirstNode
 import com.lugq.nodeadapterdemo.entity.SecondNode
+import com.lugq.nodeadapterdemo.listener.SelectedListener
 import java.util.ArrayList
 
 class NodeTreeAdapter() : BaseNodeAdapter() {
@@ -13,20 +14,30 @@ class NodeTreeAdapter() : BaseNodeAdapter() {
     private lateinit var mSecondProvider: SecondProvider
 
     init {
+        val listener = MySelectedListener()
         val mFirstProvider = FirstProvider()
+        mFirstProvider.setSelectedListener(listener)
         mSecondProvider = SecondProvider()
-        mSecondProvider.setSelectedListener(object : SecondProvider.SelectedListener {
+        mSecondProvider.setSelectedListener(object : SelectedListener {
             override fun getSelectedItems(num: Int) {
                 notifyDataSetChanged()
                 val hash = mSecondProvider.getSelectedItems()
                 for (item in hash.iterator()) {
-                    item.key;
-                    Log.i(TAG, "item.key = $item.key")
+                    item.key
+                    val value = item.value
+                    Log.i(TAG, "item.key = $item.key 长度= ${value.size}")
                 }
             }
         })
-        addNodeProvider(FirstProvider())
+        addNodeProvider(mFirstProvider)
         addNodeProvider(mSecondProvider)
+    }
+
+    inner class MySelectedListener : SelectedListener {
+        override fun getSelectedItems(num: Int) {
+            Log.i(TAG, "有选择变化")
+            notifyDataSetChanged()
+        }
     }
 
     /**

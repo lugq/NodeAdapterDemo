@@ -1,14 +1,22 @@
 package com.lugq.nodeadapterdemo.adapter
 
 import android.util.Log
+import android.util.SparseBooleanArray
 import android.view.View
+import android.widget.CheckBox
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lugq.nodeadapterdemo.R
+import com.lugq.nodeadapterdemo.entity.FirstNode
+import com.lugq.nodeadapterdemo.listener.SelectedListener
 
 class FirstProvider : BaseNodeProvider() {
     val TAG = FirstProvider::class.java.simpleName
+
+    private val mSelectedPositions: SparseBooleanArray = SparseBooleanArray()
 
     override val itemViewType: Int
         get() = 1
@@ -21,7 +29,38 @@ class FirstProvider : BaseNodeProvider() {
 
 
     override fun convert(helper: BaseViewHolder, item: BaseNode) {
+        val firstNode = item as FirstNode
 
+        helper.setText(R.id.tv_city, firstNode.title)
+
+        val cb = helper.getView<CheckBox>(R.id.checkbox)
+
+        cb.isChecked = isItemChecked(helper.adapterPosition)
+
+        val position = helper.adapterPosition
+        if (isItemChecked(position)) {
+            setItemChecked(position, true)
+        } else {
+            setItemChecked(position, false)
+        }
+
+        helper.getView<FrameLayout>(R.id.rootView).setOnClickListener {
+            if (isItemChecked(helper.adapterPosition)) {
+                setItemChecked(helper.adapterPosition, false)
+            } else {
+                setItemChecked(helper.adapterPosition, true)
+            }
+            //notifyDataSetChanged()
+            mSelectedListener?.getSelectedItems(0)
+        }
+    }
+
+    fun isItemChecked(position: Int): Boolean {
+        return mSelectedPositions.get(position)
+    }
+
+    fun setItemChecked(position: Int, isChecked: Boolean) {
+        mSelectedPositions.put(position, isChecked)
     }
 
     override fun onClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int) {
@@ -37,4 +76,9 @@ class FirstProvider : BaseNodeProvider() {
     ) {
         getAdapter()!!.expandOrCollapse(position)
     }*/
+
+    private var mSelectedListener: SelectedListener? = null
+    fun setSelectedListener(listener: SelectedListener) {
+        mSelectedListener = listener
+    }
 }
