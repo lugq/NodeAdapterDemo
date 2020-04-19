@@ -1,5 +1,6 @@
 package com.lugq.nodeadapterdemo.adapter
 
+import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.View
 import android.widget.CheckBox
@@ -14,6 +15,8 @@ import java.util.ArrayList
 
 class SecondProvider : BaseNodeProvider() {
 
+    val TAG = SecondProvider::class.java.simpleName
+
     private val mSelectedPositions: SparseBooleanArray = SparseBooleanArray()
 
     override val itemViewType: Int
@@ -26,6 +29,7 @@ class SecondProvider : BaseNodeProvider() {
         get() = R.layout.item_node_second
 
     override fun convert(helper: BaseViewHolder, item: BaseNode) {
+        Log.i(TAG, "position:${helper.adapterPosition}")
         val mSecondNode = item as SecondNode
         helper.setText(R.id.tvLocation, mSecondNode.title)
 
@@ -57,11 +61,19 @@ class SecondProvider : BaseNodeProvider() {
     }
 
     fun setItemChecked(position: Int, isChecked: Boolean) {
+        if (isChecked)
+        Log.i(TAG, "选中了：$position isChecked $isChecked")
         mSelectedPositions.put(position, isChecked)
     }
 
     override fun onChildClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int) {
+        Log.i(TAG, "position:$position")
         super.onChildClick(helper, view, data, position)
+    }
+
+    override fun onClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int) {
+        Log.i(TAG, "position:$position")
+        super.onClick(helper, view, data, position)
     }
 
     private var mSelectedListener: SelectedListener? = null
@@ -75,8 +87,8 @@ class SecondProvider : BaseNodeProvider() {
      * 返回父节点的位置
      * 返回每个位置对应的二级已选项目
      */
-    fun getSelectedItems(): HashMap<Int, MutableList<BaseNode>> {
-        val hash = HashMap<Int, MutableList<BaseNode>>()
+    fun getSelectedItems():MutableList<BaseNode>{
+        //val hash = HashMap<Int, MutableList<BaseNode>>()
         val data = this.getAdapter()?.data
 
         val selectedList: MutableList<BaseNode> = ArrayList()
@@ -88,15 +100,11 @@ class SecondProvider : BaseNodeProvider() {
                     if (isItemChecked(position)) {
                         // 所有子节点
                         selectedList.add(item)
-                        val parentNodePosition = this.getAdapter()?.findParentNode(item)
-                        if (parentNodePosition != null) {
-                            hash[parentNodePosition] = selectedList
-                        }
                     }
                 }
             }
         }
-        return hash
+        return selectedList
     }
 
 }

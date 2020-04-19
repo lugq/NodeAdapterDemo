@@ -28,4 +28,11 @@ public class SecondNode extends BaseExpandNode {
     public List<BaseNode> getChildNode() {
         return childNode;
     }
+
+    @Override
+    public String toString() {
+        return "SecondNode{" +
+                "title='" + title + '\'' +
+                '}';
+    }
 }

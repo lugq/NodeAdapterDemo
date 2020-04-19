@@ -1,6 +1,7 @@
 package com.lugq.nodeadapterdemo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.entity.node.BaseNode
@@ -11,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    val TAG = MainActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +24,17 @@ class MainActivity : AppCompatActivity() {
 
         adapter.setList(getEntity())
 
-
+        btnOk.setOnClickListener {
+            val firstNodes = adapter.getFirstNodeSelectedItems()
+            for (item in firstNodes) {
+                Log.i(TAG, "已选中的1级节点：${item.toString()}")
+            }
+            Log.i(TAG, "----------------------------------------------")
+            val secondNodes = adapter.getSecondNodeSelectedItems()
+            for (item in secondNodes) {
+                Log.i(TAG, "已选中的2级节点：${item.toString()}")
+            }
+        }
     }
 
     private fun getEntity(): List<BaseNode>? {

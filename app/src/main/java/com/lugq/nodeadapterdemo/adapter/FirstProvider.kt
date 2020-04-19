@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lugq.nodeadapterdemo.R
 import com.lugq.nodeadapterdemo.entity.FirstNode
 import com.lugq.nodeadapterdemo.listener.SelectedListener
+import java.util.ArrayList
 
 class FirstProvider : BaseNodeProvider() {
     val TAG = FirstProvider::class.java.simpleName
@@ -67,6 +68,25 @@ class FirstProvider : BaseNodeProvider() {
         super.onClick(helper, view, data, position)
         Log.i(TAG, "点击了$position")
         getAdapter()?.expandOrCollapse(position, false, true, 110)
+    }
+
+    fun getSelectedItems(): MutableList<BaseNode> {
+        val data = this.getAdapter()?.data
+
+        val selectedList: MutableList<BaseNode> = ArrayList()
+
+        if (!data.isNullOrEmpty()) {
+            for (item in data.iterator()) {
+                val position = getAdapter()?.getItemPosition(item)
+                if (null != position) {
+                    if (isItemChecked(position)) {
+                        // 所有子节点
+                        selectedList.add(item)
+                    }
+                }
+            }
+        }
+        return selectedList
     }
 
     /*

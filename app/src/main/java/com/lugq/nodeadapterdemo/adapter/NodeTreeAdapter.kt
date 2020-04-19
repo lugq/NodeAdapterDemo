@@ -11,30 +11,29 @@ import java.util.ArrayList
 class NodeTreeAdapter() : BaseNodeAdapter() {
     val TAG = NodeTreeAdapter::class.java.simpleName
 
+    private lateinit var mFirstProvider: FirstProvider
     private lateinit var mSecondProvider: SecondProvider
 
     init {
         val listener = MySelectedListener()
-        val mFirstProvider = FirstProvider()
-        mFirstProvider.setSelectedListener(listener)
+        mFirstProvider = FirstProvider()
         mSecondProvider = SecondProvider()
-        mSecondProvider.setSelectedListener(object : SelectedListener {
-            override fun getSelectedItems(num: Int) {
-                notifyDataSetChanged()
-                val hash = mSecondProvider.getSelectedItems()
-                for (item in hash.iterator()) {
-                    item.key
-                    val value = item.value
-                    Log.i(TAG, "item.key = $item.key 长度= ${value.size}")
-                }
-            }
-        })
+        mFirstProvider.setSelectedListener(listener)
+        mSecondProvider.setSelectedListener(listener)
         addNodeProvider(mFirstProvider)
         addNodeProvider(mSecondProvider)
     }
 
     inner class MySelectedListener : SelectedListener {
         override fun getSelectedItems(num: Int) {
+            notifyDataSetChanged()
+            val hash = mSecondProvider.getSelectedItems()
+            /*
+            for (item in hash.iterator()) {
+                val value = item.value
+                Log.i(TAG, "item.key = $item.key 长度= ${value.size}")
+            }*/
+
             Log.i(TAG, "有选择变化")
             notifyDataSetChanged()
         }
@@ -53,12 +52,15 @@ class NodeTreeAdapter() : BaseNodeAdapter() {
         return -1
     }
 
-    fun getSelectedItems() {
-        val selectedList: MutableList<BaseNode> = ArrayList()
+    /**
+     * 获取所有已选中的一级节点
+     */
+    fun getFirstNodeSelectedItems(): MutableList<BaseNode> {
+        return mFirstProvider.getSelectedItems()
+    }
 
-        mSecondProvider.getSelectedItems()
-
-        mSecondProvider.getSelectedItems()
+    fun getSecondNodeSelectedItems(): MutableList<BaseNode> {
+        return mSecondProvider.getSelectedItems()
     }
 
 }
