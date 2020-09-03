@@ -16,7 +16,7 @@ public class FirstNode extends BaseExpandNode {
         this.childNode = childNode;
         this.title = title;
 
-        setExpanded(false);
+        setExpanded(true);
     }
 
     public String getTitle() {

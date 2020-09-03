@@ -8,11 +8,13 @@ import com.lugq.nodeadapterdemo.entity.SecondNode
 import com.lugq.nodeadapterdemo.listener.SelectedListener
 import java.util.ArrayList
 
-class NodeTreeAdapter() : BaseNodeAdapter() {
-    val TAG = NodeTreeAdapter::class.java.simpleName
+class NodeTreeAdapter : BaseNodeAdapter() {
+    companion object {
+        const val TAG = "NodeTreeAdapter"
+    }
 
-    private lateinit var mFirstProvider: FirstProvider
-    private lateinit var mSecondProvider: SecondProvider
+    private var mFirstProvider: FirstProvider
+    private var mSecondProvider: SecondProvider
 
     init {
         val listener = MySelectedListener()
@@ -20,8 +22,10 @@ class NodeTreeAdapter() : BaseNodeAdapter() {
         mSecondProvider = SecondProvider()
         mFirstProvider.setSelectedListener(listener)
         mSecondProvider.setSelectedListener(listener)
-        addNodeProvider(mFirstProvider)
-        addNodeProvider(mSecondProvider)
+        //addNodeProvider(mFirstProvider)
+        //addNodeProvider(mSecondProvider)
+        addFullSpanNodeProvider(mFirstProvider)
+        addFullSpanNodeProvider(mSecondProvider)
     }
 
     inner class MySelectedListener : SelectedListener {
