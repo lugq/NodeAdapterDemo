@@ -4,18 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    tools:context=".ui.activity.MainActivity">
 
     <Button
-        android:id="@+id/btnOk"
-        android:layout_width="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="确定"
-        android:layout_height="wrap_content"/>
+        android:id="@+id/btnTest1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="带有CheckBox"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnTest2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击内层的btn在Activity中监听回调"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnTest1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

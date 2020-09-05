@@ -33,7 +33,8 @@ public class FirstNode extends BaseExpandNode {
     @Override
     public String toString() {
         return "FirstNode{" +
-                "title='" + title + '\'' +
+                "childNode=" + childNode +
+                ", title='" + title + '\'' +
                 '}';
     }
 }

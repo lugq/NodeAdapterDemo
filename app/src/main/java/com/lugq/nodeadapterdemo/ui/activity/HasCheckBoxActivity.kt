@@ -1,17 +1,21 @@
-package com.lugq.nodeadapterdemo
+package com.lugq.nodeadapterdemo.ui.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.entity.node.BaseNode
-import com.lugq.nodeadapterdemo.adapter.NodeTreeAdapter
+import com.chad.library.adapter.base.listener.OnItemChildClickListener
+import com.lugq.nodeadapterdemo.R
+import com.lugq.nodeadapterdemo.adapter.HasCheckBoxAdapter
 import com.lugq.nodeadapterdemo.entity.FirstNode
 import com.lugq.nodeadapterdemo.entity.SecondNode
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_check_box.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class HasCheckBoxActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "MainActivity"
@@ -19,13 +23,31 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val adapter = NodeTreeAdapter()
+        setContentView(R.layout.activity_check_box)
+        val adapter = HasCheckBoxAdapter()
 
         mRecyclerView.layoutManager = LinearLayoutManager(this)
         mRecyclerView.adapter = adapter
 
         adapter.setList(getEntity())
+
+        adapter.addChildClickViewIds(R.id.btnTest, R.id.btnLugq)
+        adapter.setOnItemChildClickListener(object: OnItemChildClickListener {
+            override fun onItemChildClick(
+                adapter: BaseQuickAdapter<*, *>,
+                view: View,
+                position: Int
+            ) {
+                val data = adapter.data[position] as SecondNode
+
+
+                /**
+                 * 引发的问题：最里层的点击事件获取外层的Entity
+                 */
+                Log.i(TAG, "data.toString():${data.toString()}")
+            }
+
+        })
 
         btnOk.setOnClickListener {
             val firstNodes = adapter.getFirstNodeSelectedItems()

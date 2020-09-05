@@ -6,20 +6,19 @@ import com.chad.library.adapter.base.entity.node.BaseNode
 import com.lugq.nodeadapterdemo.entity.FirstNode
 import com.lugq.nodeadapterdemo.entity.SecondNode
 import com.lugq.nodeadapterdemo.listener.SelectedListener
-import java.util.ArrayList
 
-class NodeTreeAdapter : BaseNodeAdapter() {
+class HasCheckBoxAdapter : BaseNodeAdapter() {
     companion object {
         const val TAG = "NodeTreeAdapter"
     }
 
-    private var mFirstProvider: FirstProvider
-    private var mSecondProvider: SecondProvider
+    private var mFirstProvider: HasCheckBoxProvider1
+    private var mSecondProvider: HasCheckBoxProvider2
 
     init {
         val listener = MySelectedListener()
-        mFirstProvider = FirstProvider()
-        mSecondProvider = SecondProvider()
+        mFirstProvider = HasCheckBoxProvider1()
+        mSecondProvider = HasCheckBoxProvider2()
         mFirstProvider.setSelectedListener(listener)
         mSecondProvider.setSelectedListener(listener)
         //addNodeProvider(mFirstProvider)

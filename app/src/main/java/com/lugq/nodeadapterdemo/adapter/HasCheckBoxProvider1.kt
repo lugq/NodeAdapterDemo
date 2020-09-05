@@ -4,34 +4,36 @@ import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.View
 import android.widget.CheckBox
-import android.widget.LinearLayout
+import android.widget.FrameLayout
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lugq.nodeadapterdemo.R
-import com.lugq.nodeadapterdemo.entity.SecondNode
+import com.lugq.nodeadapterdemo.entity.FirstNode
 import com.lugq.nodeadapterdemo.listener.SelectedListener
 import java.util.ArrayList
 
-class SecondProvider : BaseNodeProvider() {
-
-    val TAG = SecondProvider::class.java.simpleName
+class HasCheckBoxProvider1 : BaseNodeProvider() {
+    companion object {
+        const val TAG = "FirstProvider"
+    }
 
     private val mSelectedPositions: SparseBooleanArray = SparseBooleanArray()
 
     override val itemViewType: Int
-        get() = 2
+        get() = 1
 
     /**
      * 返回一级节点布局
      */
     override val layoutId: Int
-        get() = R.layout.item_node_second
+        get() = R.layout.item_has_checkbox1
+
 
     override fun convert(helper: BaseViewHolder, item: BaseNode) {
-        Log.i(TAG, "position:${helper.adapterPosition}")
-        val mSecondNode = item as SecondNode
-        helper.setText(R.id.tvLocation, mSecondNode.title)
+        val firstNode = item as FirstNode
+
+        helper.setText(R.id.tv_city, firstNode.title)
 
         val cb = helper.getView<CheckBox>(R.id.checkbox)
 
@@ -44,16 +46,20 @@ class SecondProvider : BaseNodeProvider() {
             setItemChecked(position, false)
         }
 
-        helper.getView<LinearLayout>(R.id.rootView).setOnClickListener {
+        helper.getView<FrameLayout>(R.id.rootView).setOnClickListener {
             if (isItemChecked(helper.adapterPosition)) {
                 setItemChecked(helper.adapterPosition, false)
             } else {
                 setItemChecked(helper.adapterPosition, true)
             }
-
-            mSelectedListener?.getSelectedItems(0)
             //notifyDataSetChanged()
+            mSelectedListener?.getSelectedItems(0)
         }
+
+        /*
+        helper.getView<Button>(R.id.btnTest).setOnClickListener {
+            Log.i(TAG, "item信息：${item.toString()}")
+        }*/
     }
 
     fun isItemChecked(position: Int): Boolean {
@@ -61,34 +67,16 @@ class SecondProvider : BaseNodeProvider() {
     }
 
     fun setItemChecked(position: Int, isChecked: Boolean) {
-        if (isChecked)
-        Log.i(TAG, "选中了：$position isChecked $isChecked")
         mSelectedPositions.put(position, isChecked)
     }
 
-    override fun onChildClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int) {
-        Log.i(TAG, "position:$position")
-        super.onChildClick(helper, view, data, position)
-    }
-
     override fun onClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int) {
-        Log.i(TAG, "position:$position")
         super.onClick(helper, view, data, position)
+        Log.i(TAG, "点击了$position")
+        //getAdapter()?.expandOrCollapse(position, false, true, 110)
     }
 
-    private var mSelectedListener: SelectedListener? = null
-    fun setSelectedListener(listener: SelectedListener) {
-        mSelectedListener = listener
-    }
-
-
-    // 获得选中条目的结果
-    /**
-     * 返回父节点的位置
-     * 返回每个位置对应的二级已选项目
-     */
-    fun getSelectedItems():MutableList<BaseNode>{
-        //val hash = HashMap<Int, MutableList<BaseNode>>()
+    fun getSelectedItems(): MutableList<BaseNode> {
         val data = this.getAdapter()?.data
 
         val selectedList: MutableList<BaseNode> = ArrayList()
@@ -107,4 +95,16 @@ class SecondProvider : BaseNodeProvider() {
         return selectedList
     }
 
+    /*
+    fun onClick(
+        @NotNull helper: BaseViewHolder?, @NotNull view: View?, data: BaseNode?,
+        position: Int
+    ) {
+        getAdapter()!!.expandOrCollapse(position)
+    }*/
+
+    private var mSelectedListener: SelectedListener? = null
+    fun setSelectedListener(listener: SelectedListener) {
+        mSelectedListener = listener
+    }
 }
