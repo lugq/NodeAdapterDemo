@@ -3,8 +3,7 @@ package com.lugq.nodeadapterdemo.adapter
 import android.util.Log
 import com.chad.library.adapter.base.BaseNodeAdapter
 import com.chad.library.adapter.base.entity.node.BaseNode
-import com.lugq.nodeadapterdemo.entity.FirstNode
-import com.lugq.nodeadapterdemo.entity.SecondNode
+import com.lugq.nodeadapterdemo.entity.FirstNodeJ
 import com.lugq.nodeadapterdemo.listener.SelectedListener
 
 class CommonAdapter : BaseNodeAdapter() {
@@ -47,9 +46,9 @@ class CommonAdapter : BaseNodeAdapter() {
      */
     override fun getItemType(data: List<BaseNode>, position: Int): Int {
         val node = data[position]
-        if (node is FirstNode) {
+        if (node is FirstNodeJ) {
             return 1
-        } else if (node is SecondNode) {
+        } else if (node is FirstNodeJ.SecondeNodeJ) {
             return 2
         }
         return -1

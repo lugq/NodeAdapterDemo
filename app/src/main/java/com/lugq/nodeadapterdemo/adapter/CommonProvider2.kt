@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lugq.nodeadapterdemo.R
-import com.lugq.nodeadapterdemo.entity.SecondNode
+import com.lugq.nodeadapterdemo.entity.FirstNodeJ
 import com.lugq.nodeadapterdemo.listener.SelectedListener
 import java.util.ArrayList
 
@@ -30,7 +30,7 @@ class CommonProvider2 : BaseNodeProvider() {
 
     override fun convert(helper: BaseViewHolder, item: BaseNode) {
         Log.i(TAG, "position:${helper.adapterPosition}")
-        val mSecondNode = item as SecondNode
+        val mSecondNode = item as FirstNodeJ.SecondeNodeJ
         helper.setText(R.id.tvLocation, mSecondNode.title)
 
         //val cb = helper.getView<CheckBox>(R.id.checkbox)

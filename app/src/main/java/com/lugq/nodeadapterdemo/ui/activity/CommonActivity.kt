@@ -12,9 +12,11 @@ import com.lugq.nodeadapterdemo.R
 import com.lugq.nodeadapterdemo.adapter.CommonAdapter
 import com.lugq.nodeadapterdemo.adapter.HasCheckBoxAdapter
 import com.lugq.nodeadapterdemo.entity.FirstNode
+import com.lugq.nodeadapterdemo.entity.FirstNodeJ
 import com.lugq.nodeadapterdemo.entity.SecondNode
 import kotlinx.android.synthetic.main.activity_check_box.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * 点击监听返回父节点的思路？
@@ -73,6 +75,7 @@ class CommonActivity : AppCompatActivity() {
         }*/
     }
 
+    /*
     private fun getEntity(): List<BaseNode>? {
         // 一级节点容器
         val list: MutableList<BaseNode> =
@@ -92,5 +95,23 @@ class CommonActivity : AppCompatActivity() {
             list.add(entity)
         }
         return list
+    }*/
+
+    private fun getEntity(): List<BaseNode>? {
+        val dataList = ArrayList<FirstNodeJ>()
+        // 循环添加数据
+        for (i in 1..10) {
+            val firstNode = FirstNodeJ("标题${i}")
+
+            val secondList = ArrayList<FirstNodeJ.SecondeNodeJ>()
+            for (j in 1..5) {
+                val secondNodeList: MutableList<BaseNode> = ArrayList()
+                val secondEntity = FirstNodeJ.SecondeNodeJ(secondNodeList, "标题")
+                secondList.add(secondEntity)
+            }
+            firstNode.mSubItems = secondList
+            dataList.add(firstNode)
+        }
+        return dataList
     }
 }

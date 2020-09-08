@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lugq.nodeadapterdemo.R
 import com.lugq.nodeadapterdemo.entity.FirstNode
+import com.lugq.nodeadapterdemo.entity.FirstNodeJ
 import com.lugq.nodeadapterdemo.listener.SelectedListener
 import java.util.ArrayList
 
@@ -31,7 +32,7 @@ class CommonProvider1 : BaseNodeProvider() {
 
 
     override fun convert(helper: BaseViewHolder, item: BaseNode) {
-        val firstNode = item as FirstNode
+        val firstNode = item as FirstNodeJ
 
         helper.setText(R.id.tv_city, firstNode.title)
 
