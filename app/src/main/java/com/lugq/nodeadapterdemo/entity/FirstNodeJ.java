@@ -42,10 +42,12 @@ public class FirstNodeJ extends BaseExpandNode implements NodeFooterImp  {
         return childNode;
     }
 
+    public FooterNode mFooterNode = new FooterNode();
     @Nullable
     @Override
     public BaseNode getFooterNode() {
-        return new FooterNode();
+        //return new FooterNode();
+        return mFooterNode;
     }
 
     @Override
@@ -101,11 +103,18 @@ public class FirstNodeJ extends BaseExpandNode implements NodeFooterImp  {
     }
 
     public static class FooterNode extends BaseNode {
-
+        public String parentTitle;
         @Nullable
         @Override
         public List<BaseNode> getChildNode() {
             return null;
+        }
+
+        @Override
+        public String toString() {
+            return "FooterNode{" +
+                    "parentTitle='" + parentTitle + '\'' +
+                    '}';
         }
     }
 }

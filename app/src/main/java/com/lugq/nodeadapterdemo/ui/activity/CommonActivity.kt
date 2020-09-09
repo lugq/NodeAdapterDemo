@@ -57,7 +57,6 @@ class CommonActivity : AppCompatActivity() {
                  */
                 Log.i(TAG, "触发点击:${data.toString()}")
             }
-
         })
     }
 
@@ -69,8 +68,14 @@ class CommonActivity : AppCompatActivity() {
     private fun test(data: List<FirstNodeJ>?): List<FirstNodeJ>? {
         if (data != null) {
             for (item in data) {
+                // 给footView设置数据
+                item.mFooterNode.parentTitle = item.title
+                //val footItem = item.footerNode as FirstNodeJ.FooterNode
+                //footItem.parentTitle = item.title
+
                 val childItem = item.childNode as List<FirstNodeJ.SecondeNodeJ>
                 if (childItem != null) {
+                    //向2级的subItem 添加数据
                     for (child in childItem) {
                         child.parentTitle = item.title
                     }
