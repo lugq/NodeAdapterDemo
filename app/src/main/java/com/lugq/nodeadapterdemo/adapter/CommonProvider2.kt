@@ -3,15 +3,13 @@ package com.lugq.nodeadapterdemo.adapter
 import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.View
-import android.widget.CheckBox
-import android.widget.LinearLayout
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lugq.nodeadapterdemo.R
 import com.lugq.nodeadapterdemo.entity.FirstNodeJ
 import com.lugq.nodeadapterdemo.listener.SelectedListener
-import java.util.ArrayList
+import java.util.*
 
 class CommonProvider2 : BaseNodeProvider() {
 

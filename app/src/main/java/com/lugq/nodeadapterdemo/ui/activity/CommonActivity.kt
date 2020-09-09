@@ -10,13 +10,10 @@ import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.lugq.nodeadapterdemo.R
 import com.lugq.nodeadapterdemo.adapter.CommonAdapter
-import com.lugq.nodeadapterdemo.adapter.HasCheckBoxAdapter
 import com.lugq.nodeadapterdemo.entity.FirstNode
 import com.lugq.nodeadapterdemo.entity.FirstNodeJ
 import com.lugq.nodeadapterdemo.entity.SecondNode
 import kotlinx.android.synthetic.main.activity_check_box.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * 点击监听返回父节点的思路？
@@ -54,48 +51,14 @@ class CommonActivity : AppCompatActivity() {
                 }
                 /**
                  * 引发的问题：最里层的点击事件获取外层的Entity
+                 *
+                 * 解决方案：在子的Entity中设置父的Entity的一些字段
                  */
-                Log.i(TAG, "data.toString():${data.toString()}")
-
+                Log.i(TAG, "触发点击:${data.toString()}")
             }
 
         })
-
-        /*
-        btnOk.setOnClickListener {
-            val firstNodes = adapter.getFirstNodeSelectedItems()
-            for (item in firstNodes) {
-                Log.i(TAG, "已选中的1级节点：${item.toString()}")
-            }
-            Log.i(TAG, "----------------------------------------------")
-            val secondNodes = adapter.getSecondNodeSelectedItems()
-            for (item in secondNodes) {
-                Log.i(TAG, "已选中的2级节点：${item.toString()}")
-            }
-        }*/
     }
-
-    /*
-    private fun getEntity(): List<BaseNode>? {
-        // 一级节点容器
-        val list: MutableList<BaseNode> =
-            ArrayList()
-        for (i in 0..7) {
-            // 二级节点容器
-            val secondNodeList: MutableList<BaseNode> = ArrayList()
-
-            // 二级节点的
-            for (a in 0..4) {
-                secondNodeList.add(SecondNode(null, "地址$i -- $a"))
-            }
-
-            val entity = FirstNode(secondNodeList, "First Node $i")
-            // 模拟 默认第0个是展开的
-            //entity.setExpanded(i == 0)
-            list.add(entity)
-        }
-        return list
-    }*/
 
     private fun getEntity(): List<BaseNode>? {
         val dataList = ArrayList<FirstNodeJ>()
