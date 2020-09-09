@@ -33,7 +33,8 @@ class CommonActivity : AppCompatActivity() {
         mRecyclerView.layoutManager = LinearLayoutManager(this)
         mRecyclerView.adapter = adapter
 
-        adapter.setList(getEntity())
+        //adapter.setList(getEntity())
+        adapter.setList(test(getEntity()))
 
         adapter.addChildClickViewIds(R.id.btnTest, R.id.btnLugq)
         adapter.setOnItemChildClickListener(object : OnItemChildClickListener {
@@ -60,7 +61,26 @@ class CommonActivity : AppCompatActivity() {
         })
     }
 
-    private fun getEntity(): List<BaseNode>? {
+    /**
+     * 将子item赋值一个父的Entity
+     *
+     * 目的：点击子item可以打印出父节点中的数据
+     */
+    private fun test(data: List<FirstNodeJ>?): List<FirstNodeJ>? {
+        if (data != null) {
+            for (item in data) {
+                val childItem = item.childNode as List<FirstNodeJ.SecondeNodeJ>
+                if (childItem != null) {
+                    for (child in childItem) {
+                        child.parentTitle = item.title
+                    }
+                }
+            }
+        }
+        return data
+    }
+
+    private fun getEntity(): List<FirstNodeJ>? {
         val dataList = ArrayList<FirstNodeJ>()
         // 循环添加数据
         for (i in 1..10) {

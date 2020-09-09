@@ -12,8 +12,9 @@ import com.lugq.nodeadapterdemo.listener.SelectedListener
 import java.util.*
 
 class CommonProvider2 : BaseNodeProvider() {
-
-    val TAG = CommonProvider2::class.java.simpleName
+    companion object {
+        const val TAG = "CommonProvider2"
+    }
 
     private val mSelectedPositions: SparseBooleanArray = SparseBooleanArray()
 
