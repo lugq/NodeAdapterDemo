@@ -61,9 +61,11 @@ public class FirstNodeJ extends BaseExpandNode implements NodeFooterImp  {
     public static class SecondeNodeJ extends BaseExpandNode {
         private List<BaseNode> childNode;
         private String title;
+        public String id;
 
         /*************↓↓↓↓↓↓↓↓↓↓***************/
         public String parentTitle;
+        public int parentPosition;
         /*************↑↑↑↑↑↑↑↑↑↑***************/
 
         public SecondeNodeJ(List<BaseNode> childNode, String title) {
@@ -83,21 +85,14 @@ public class FirstNodeJ extends BaseExpandNode implements NodeFooterImp  {
             return childNode;
         }
 
-        /*
         @Override
         public String toString() {
             return "SecondeNodeJ{" +
                     "childNode=" + childNode +
                     ", title='" + title + '\'' +
-                    '}';
-        }*/
-
-        @Override
-        public String toString() {
-            return "SecondeNodeJ{" +
-                    "childNode=" + childNode +
-                    ", title='" + title + '\'' +
+                    ", id='" + id + '\'' +
                     ", parentTitle='" + parentTitle + '\'' +
+                    ", parentPosition=" + parentPosition +
                     '}';
         }
     }
