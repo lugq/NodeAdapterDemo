@@ -2,11 +2,13 @@ package com.lugq.nodeadapterdemo.ui.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.lugq.nodeadapterdemo.R
 import com.lugq.nodeadapterdemo.adapter.CommonAdapter
+import com.lugq.nodeadapterdemo.adapter.CommonProvider2
 import com.lugq.nodeadapterdemo.entity.FirstNodeJ
 import kotlinx.android.synthetic.main.activity_check_box.*
 
@@ -34,6 +36,16 @@ class CommonActivity : AppCompatActivity() {
 
         mCommonAdapter.addChildClickViewIds(R.id.btnTest, R.id.btnLugq)
         mCommonAdapter.setOnItemChildClickListener { adapter, view, position ->
+            when (view.id) {
+                R.id.btnLugq -> {
+                    val entity = adapter.data[position] as FirstNodeJ.SecondeNodeJ
+                    Toast.makeText(this@CommonActivity, "点击了click${entity}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                R.id.btnTest -> {
+
+                }
+            }
             val data = adapter.data[position]
             if (data is FirstNodeJ.SecondeNodeJ) {
                 val secondNode = data as FirstNodeJ.SecondeNodeJ
@@ -99,7 +111,7 @@ class CommonActivity : AppCompatActivity() {
             val secondList = ArrayList<FirstNodeJ.SecondeNodeJ>()
             for (j in 1..5) {
                 val secondNodeList: MutableList<BaseNode> = ArrayList()
-                val secondEntity = FirstNodeJ.SecondeNodeJ(secondNodeList, "标题")
+                val secondEntity = FirstNodeJ.SecondeNodeJ(secondNodeList, "标题${(0..100).random()}")
                 secondEntity.id = "${i}_${j}"
                 secondList.add(secondEntity)
             }

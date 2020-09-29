@@ -1,7 +1,6 @@
 package com.lugq.nodeadapterdemo.adapter
 
 import android.util.Log
-import android.view.View
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -32,16 +31,6 @@ class CommonProvider2 : BaseNodeProvider() {
             Log.i(TAG, "点击的position${helper.adapterPosition}")
             getAdapter()?.remove(helper.adapterPosition)
         }*/
-    }
-
-    override fun onChildClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int) {
-        Log.i(TAG, "position:$position")
-        super.onChildClick(helper, view, data, position)
-    }
-
-    override fun onClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int) {
-        Log.i(TAG, "position:$position")
-        super.onClick(helper, view, data, position)
     }
 
 }

@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // 带有CheckBox
         btnTest1.setOnClickListener {
             startActivity(Intent(this, HasCheckBoxActivity::class.java))
         }
