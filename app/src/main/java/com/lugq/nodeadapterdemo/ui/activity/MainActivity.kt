@@ -21,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         btnTest2.setOnClickListener {
             startActivity(Intent(this, CommonActivity::class.java))
         }
+
+        // 顶部吸附效果
+        btnTest3.setOnClickListener {
+
+        }
     }
 
 }

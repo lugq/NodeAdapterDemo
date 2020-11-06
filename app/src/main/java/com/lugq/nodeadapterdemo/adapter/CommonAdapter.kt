@@ -3,6 +3,7 @@ package com.lugq.nodeadapterdemo.adapter
 import com.chad.library.adapter.base.BaseNodeAdapter
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.lugq.nodeadapterdemo.entity.FirstNodeJ
+import com.oushangfeng.pinnedsectionitemdecoration.PinnedHeaderItemDecoration
 
 class CommonAdapter : BaseNodeAdapter() {
     var listData: ArrayList<FirstNodeJ>? = null
