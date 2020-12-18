@@ -38,11 +38,27 @@ class LessonProvider1 : BaseNodeProvider() {
          * https://github.com/CymChad/BaseRecyclerViewAdapterHelper/issues/3333
          */
         // 点击后收起其它的
-        val da = data as LessonFirstNode
-        if (da.isExpanded) {
+        val currEntity = data as LessonFirstNode
+        if (currEntity.isExpanded) {
             getAdapter()?.collapse(position)
         } else {
-            EventBus.getDefault().post(data)
+            /**
+             * 两步操作：
+             * 第一步：还原UI
+             * 将列表的所有集合中的Item中isYincang字段置为 false
+             * 第二步：隐藏当前头部的item视图
+             */
+            val dataList = getAdapter()?.data
+            dataList?.apply {
+                for (index in dataList.indices) {
+                    val entity = dataList[index]
+                    if (entity is LessonFirstNode) {
+                        entity.isYincang = false
+                    }
+                }
+            }
+            currEntity.isYincang = true
+
             getAdapter()?.expandAndCollapseOther(position)
         }
     }

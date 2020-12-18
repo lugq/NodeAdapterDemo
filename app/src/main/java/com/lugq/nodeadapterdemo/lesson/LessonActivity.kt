@@ -81,31 +81,4 @@ class LessonActivity : AppCompatActivity() {
         }
         return dataList
     }
-
-
-    override fun onStart() {
-        super.onStart()
-        EventBusUtils.registerEventBus(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        EventBusUtils.unregisterEventBus(this)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: LessonFirstNode) {
-        // 先还原
-        val data = mCommonAdapter.data
-
-        if (data.isNullOrEmpty()) return
-        for (index in data.indices) {
-            val da = data[index]
-            if (da is LessonFirstNode) {
-                da.isYincang = false
-            }
-        }
-        // 再
-        event.isYincang = true
-    }
 }
