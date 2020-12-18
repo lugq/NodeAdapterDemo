@@ -14,4 +14,11 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">20dp</item>
     </style>
+
+    <style name="BtnStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cornerRadius">20dp</item>
+        <item name="layout_constraintLeft_toLeftOf">parent</item>
+    </style>
 </resources>

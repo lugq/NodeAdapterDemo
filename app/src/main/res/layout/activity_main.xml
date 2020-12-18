@@ -4,31 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".ui.activity.MainActivity"
-    tools:ignore="HardcodedText">
+    tools:ignore="HardcodedText,MissingConstraints">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnTest1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/BtnStyle"
         android:text="带有CheckBox"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnTest2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/BtnStyle"
         android:text="点击内层的btn在Activity中监听回调"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnTest1" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnTest3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/BtnStyle"
         android:text="横向展示的"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnTest2" />
+        app:layout_constraintTop_toBottomOf="@id/btnTest2"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
