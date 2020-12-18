@@ -1,33 +1,40 @@
 package com.lugq.nodeadapterdemo.ui.activity
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.entity.node.BaseNode
+import com.lugq.nodeadapterdemo.EventBusUtils
 import com.lugq.nodeadapterdemo.R
 import com.lugq.nodeadapterdemo.adapter.CommonAdapter
-import com.lugq.nodeadapterdemo.adapter.CommonProvider2
+import com.lugq.nodeadapterdemo.adapter.LessonAdapter
 import com.lugq.nodeadapterdemo.entity.FirstNodeJ
+import com.lugq.nodeadapterdemo.entity.LessonFirstNode
 import kotlinx.android.synthetic.main.activity_check_box.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * 点击监听返回父节点的思路？
  * 思路1：设置数据的时候将父节点的字段保存进入子节点
  */
-class CommonActivity : AppCompatActivity() {
+class Test3Activity : AppCompatActivity() {
 
     companion object {
         const val TAG = "CommonActivity"
     }
 
+    lateinit var mCommonAdapter: LessonAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_common)
-        val mCommonAdapter = CommonAdapter()
+        setContentView(R.layout.activity_test3)
+        mCommonAdapter = LessonAdapter()
 
-        mRecyclerView.layoutManager = LinearLayoutManager(this)//.apply { orientation = LinearLayoutManager.HORIZONTAL }
+        mRecyclerView.layoutManager =
+            LinearLayoutManager(this).apply { orientation = LinearLayoutManager.HORIZONTAL }
 
         mRecyclerView.adapter = mCommonAdapter
 
@@ -40,7 +47,7 @@ class CommonActivity : AppCompatActivity() {
             when (view.id) {
                 R.id.btnLugq -> {
                     val entity = adapter.data[position] as FirstNodeJ.SecondeNodeJ
-                    Toast.makeText(this@CommonActivity, "点击了click${entity}", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@Test3Activity, "点击了click${entity}", Toast.LENGTH_SHORT)
                         .show()
                 }
                 R.id.btnTest -> {
@@ -84,14 +91,14 @@ class CommonActivity : AppCompatActivity() {
      *
      * 目的：点击子item可以打印出父节点中的数据
      */
-    private fun setInfo(dataList: List<FirstNodeJ>?): List<FirstNodeJ>? {
+    private fun setInfo(dataList: List<LessonFirstNode>?): List<LessonFirstNode>? {
         if (dataList != null) {
             for (index in dataList.indices) {
                 val item = dataList[index]
                 // 给footView设置数据
-                item.mFooterNode.parentTitle = item.title
+                //item.mFooterNode.parentTitle = item.title
 
-                val childItem = item.childNode as List<FirstNodeJ.SecondeNodeJ>
+                val childItem = item.childNode as List<LessonFirstNode.SecondeNodeJ>
                 if (childItem != null) {
                     //向2级的subItem 添加数据
                     for (child in childItem) {
@@ -104,15 +111,16 @@ class CommonActivity : AppCompatActivity() {
         return dataList
     }
 
-    private fun getEntity(): List<FirstNodeJ>? {
-        val dataList = ArrayList<FirstNodeJ>()
+    private fun getEntity(): List<LessonFirstNode>? {
+        val dataList = ArrayList<LessonFirstNode>()
         // 循环添加数据
-        for (i in 1..10) {
-            val firstNode = FirstNodeJ("标题${i}")
-            val secondList = ArrayList<FirstNodeJ.SecondeNodeJ>()
+        for (i in 1..3) {
+            val firstNode = LessonFirstNode("标题${i}")
+            val secondList = ArrayList<LessonFirstNode.SecondeNodeJ>()
             for (j in 1..5) {
                 val secondNodeList: MutableList<BaseNode> = ArrayList()
-                val secondEntity = FirstNodeJ.SecondeNodeJ(secondNodeList, "标题${(0..100).random()}")
+                val secondEntity =
+                    LessonFirstNode.SecondeNodeJ(secondNodeList, "标题${(0..100).random()}")
                 secondEntity.id = "${i}_${j}"
                 secondList.add(secondEntity)
             }
@@ -125,7 +133,10 @@ class CommonActivity : AppCompatActivity() {
     /**
      * 根据ID遍历对应的一组父娃
      */
-    private fun search(id: String, dataList: List<FirstNodeJ>?): List<FirstNodeJ.SecondeNodeJ>? {
+    private fun search(
+        id: String,
+        dataList: List<LessonFirstNode>?
+    ): List<LessonFirstNode.SecondeNodeJ>? {
         if (dataList.isNullOrEmpty()) return null
         for (index in dataList.indices) {
             val data = dataList[index]
@@ -136,5 +147,32 @@ class CommonActivity : AppCompatActivity() {
             }
         }
         return null
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBusUtils.registerEventBus(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBusUtils.unregisterEventBus(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: LessonFirstNode) {
+        // 先还原
+        val data = mCommonAdapter.data
+
+        if (data.isNullOrEmpty()) return
+        for (index in data.indices) {
+            val da = data[index]
+            if (da is LessonFirstNode) {
+                da.isYincang = false
+            }
+        }
+        // 再
+        event.isYincang = true
+        //mCommonAdapter.notifyDataSetChanged()
     }
 }

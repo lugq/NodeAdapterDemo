@@ -2,19 +2,18 @@ package com.lugq.nodeadapterdemo.adapter
 
 import com.chad.library.adapter.base.BaseNodeAdapter
 import com.chad.library.adapter.base.entity.node.BaseNode
-import com.lugq.nodeadapterdemo.entity.FirstNodeJ
-import com.oushangfeng.pinnedsectionitemdecoration.PinnedHeaderItemDecoration
+import com.lugq.nodeadapterdemo.entity.LessonFirstNode
 
-class CommonAdapter : BaseNodeAdapter() {
-    var listData: ArrayList<FirstNodeJ>? = null
+class LessonAdapter : BaseNodeAdapter() {
+    var listData: ArrayList<LessonFirstNode>? = null
 
     companion object {
         //const val TAG = "NodeTreeAdapter"
     }
 
     init {
-        addFullSpanNodeProvider(CommonProvider1())
-        addFullSpanNodeProvider(CommonProvider2())
+        addFullSpanNodeProvider(LessonProvider1())
+        addFullSpanNodeProvider(LessonProvider2())
         addFullSpanNodeProvider(RootFooterNodeProvider())
     }
 
@@ -23,20 +22,20 @@ class CommonAdapter : BaseNodeAdapter() {
      */
     override fun getItemType(data: List<BaseNode>, position: Int): Int {
         return when (data[position]) {
-            is FirstNodeJ -> {
+            is LessonFirstNode -> {
                 1
             }
-            is FirstNodeJ.SecondeNodeJ -> {
+            is LessonFirstNode.SecondeNodeJ -> {
                 2
             }
-            is FirstNodeJ.FooterNode -> {
+            is LessonFirstNode.FooterNode -> {
                 3
             }
             else -> -1
         }
     }
 
-    fun firstRefresh(data: List<FirstNodeJ>?) {
+    fun firstRefresh(data: List<LessonFirstNode>?) {
         if (null == listData)
             listData = ArrayList()
         listData?.clear()
@@ -44,10 +43,8 @@ class CommonAdapter : BaseNodeAdapter() {
             listData?.addAll(0, data)
     }
 
-    fun loadRefresh(data: List<FirstNodeJ>) {
+    fun loadRefresh(data: List<LessonFirstNode>) {
         listData?.addAll(data)
     }
-
-
 
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * <p>
  * 遗留的？不知道怎么转换成Kotlin
  */
-public class FirstNodeJ extends BaseExpandNode implements NodeFooterImp  {
+public class LessonFirstNode extends BaseExpandNode  {
     // 这两个字段是Json解析中对应的字段
     private String title;
     public List<SecondeNodeJ> mSubItems;
@@ -32,7 +32,7 @@ public class FirstNodeJ extends BaseExpandNode implements NodeFooterImp  {
         this.yincang = yincang;
     }
 
-    public FirstNodeJ(String title) {
+    public LessonFirstNode(String title) {
         this.title = title;
 
         // 设置默认折叠状态
@@ -51,14 +51,6 @@ public class FirstNodeJ extends BaseExpandNode implements NodeFooterImp  {
             childNode = new ArrayList(mSubItems);
         }
         return childNode;
-    }
-
-    public FooterNode mFooterNode = new FooterNode();
-    @Nullable
-    @Override
-    public BaseNode getFooterNode() {
-        //return new FooterNode();
-        return mFooterNode;
     }
 
     @Override

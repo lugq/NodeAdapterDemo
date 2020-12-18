@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, CommonActivity::class.java))
         }
 
-        // 顶部吸附效果
+        // 横向展示的
         btnTest3.setOnClickListener {
-
+            startActivity(Intent(this, Test3Activity::class.java))
         }
     }
 

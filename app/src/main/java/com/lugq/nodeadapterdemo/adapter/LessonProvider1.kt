@@ -4,18 +4,21 @@ import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.View
 import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ConvertUtils
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lugq.nodeadapterdemo.R
 import com.lugq.nodeadapterdemo.entity.FirstNodeJ
+import com.lugq.nodeadapterdemo.entity.LessonFirstNode
 import com.lugq.nodeadapterdemo.listener.SelectedListener
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 
-class CommonProvider1 : BaseNodeProvider() {
+class LessonProvider1 : BaseNodeProvider() {
     companion object {
         const val TAG = "FirstProvider"
     }
@@ -29,56 +32,18 @@ class CommonProvider1 : BaseNodeProvider() {
      * 返回一级节点布局
      */
     override val layoutId: Int
-        get() = R.layout.item_common1
-
-
-
+        get() = R.layout.item_lesson1
 
     override fun convert(helper: BaseViewHolder, item: BaseNode) {
-        val firstNode = item as FirstNodeJ
+        val firstNode = item as LessonFirstNode
         if (firstNode.isYincang) {
-            val view = helper.getView<LinearLayout>(R.id.llroot)
-            view.layoutParams.height = 0
+            val view = helper.getView<ConstraintLayout>(R.id.llroot)
+            view.layoutParams.width = 0
         } else {
-            val view = helper.getView<LinearLayout>(R.id.llroot)
-            view.layoutParams.height = 100
+            val view = helper.getView<ConstraintLayout>(R.id.llroot)
+            view.layoutParams.width = ConvertUtils.dp2px(205f)
         }
-        helper.setText(R.id.tv_city, firstNode.title)
-
-        //val cb = helper.getView<CheckBox>(R.id.checkbox)
-
-        //cb.isChecked = isItemChecked(helper.adapterPosition)
-
-        /*
-        val position = helper.adapterPosition
-        if (isItemChecked(position)) {
-            setItemChecked(position, true)
-        } else {
-            setItemChecked(position, false)
-        }
-
-        helper.getView<FrameLayout>(R.id.rootView).setOnClickListener {
-            if (isItemChecked(helper.adapterPosition)) {
-                setItemChecked(helper.adapterPosition, false)
-            } else {
-                setItemChecked(helper.adapterPosition, true)
-            }
-            //notifyDataSetChanged()
-            mSelectedListener?.getSelectedItems(0)
-        }*/
-
-        /*
-        helper.getView<Button>(R.id.btnTest).setOnClickListener {
-            Log.i(TAG, "item信息：${item.toString()}")
-        }*/
-    }
-
-    fun isItemChecked(position: Int): Boolean {
-        return mSelectedPositions.get(position)
-    }
-
-    fun setItemChecked(position: Int, isChecked: Boolean) {
-        mSelectedPositions.put(position, isChecked)
+       // helper.setText(R.id.tv_city, firstNode.title)
     }
 
     /****/
@@ -96,45 +61,20 @@ class CommonProvider1 : BaseNodeProvider() {
         //getAdapter()?.expandOrCollapse(position, false, true, 110)
 
         // 需求2：点击后收起其它的
-        val da = data as FirstNodeJ
+        val da = data as LessonFirstNode
         if (da.isExpanded) {
+            // 每次
+
             getAdapter()?.collapse(position)
         }else {
-            getAdapter()?.expandAndCollapseOther(position)
             EventBus.getDefault().post(data)
+
+            getAdapter()?.expandAndCollapseOther(position)
+
         }
 
 
     }
-
-    fun getSelectedItems(): MutableList<BaseNode> {
-        val data = this.getAdapter()?.data
-
-        val selectedList: MutableList<BaseNode> = ArrayList()
-
-        if (!data.isNullOrEmpty()) {
-            for (item in data.iterator()) {
-                val position = getAdapter()?.getItemPosition(item)
-                if (null != position) {
-                    if (isItemChecked(position)) {
-                        // 所有子节点
-                        selectedList.add(item)
-                    }
-                }
-            }
-        }
-        return selectedList
-    }
-
-
-
-    /*
-    override fun onClick(
-        @NotNull helper: BaseViewHolder?, @NotNull view: View?, data: BaseNode?,
-        position: Int
-    ) {
-        getAdapter()!!.expandOrCollapse(position)
-    }*/
 
     private var mSelectedListener: SelectedListener? = null
     fun setSelectedListener(listener: SelectedListener) {
