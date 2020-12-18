@@ -1,12 +1,10 @@
-package com.lugq.nodeadapterdemo.adapter
+package com.lugq.nodeadapterdemo.lesson
 
 import android.util.Log
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lugq.nodeadapterdemo.R
-import com.lugq.nodeadapterdemo.entity.FirstNodeJ
-import com.lugq.nodeadapterdemo.entity.LessonFirstNode
 
 class LessonProvider2 : BaseNodeProvider() {
     companion object {
