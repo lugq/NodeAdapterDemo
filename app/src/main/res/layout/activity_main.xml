@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.MainActivity">
+    tools:context=".ui.activity.MainActivity"
+    tools:ignore="HardcodedText">
 
     <Button
         android:id="@+id/btnTest1"
@@ -26,7 +27,7 @@
         android:id="@+id/btnTest3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="顶部吸附效果"
+        android:text="横向展示的"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnTest2" />
 
