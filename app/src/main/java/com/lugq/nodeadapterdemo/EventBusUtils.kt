@@ -1,4 +1,4 @@
-package com.lugq.eventbusdemo
+package com.lugq.nodeadapterdemo
 
 import org.greenrobot.eventbus.EventBus
 
