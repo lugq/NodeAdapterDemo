@@ -1,4 +1,4 @@
-package com.lugq.nodeadapterdemo.entity;
+package com.lugq.nodeadapterdemo.lesson;
 
 import com.chad.library.adapter.base.entity.node.BaseExpandNode;
 import com.chad.library.adapter.base.entity.node.BaseNode;

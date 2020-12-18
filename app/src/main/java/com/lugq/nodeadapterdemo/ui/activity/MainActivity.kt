@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.lugq.nodeadapterdemo.R
+import com.lugq.nodeadapterdemo.lesson.LessonActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         // 横向展示的
         btnTest3.setOnClickListener {
-            startActivity(Intent(this, Test3Activity::class.java))
+            startActivity(Intent(this, LessonActivity::class.java))
         }
     }
 

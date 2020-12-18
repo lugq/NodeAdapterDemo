@@ -1,8 +1,8 @@
-package com.lugq.nodeadapterdemo.adapter
+package com.lugq.nodeadapterdemo.lesson
 
 import com.chad.library.adapter.base.BaseNodeAdapter
 import com.chad.library.adapter.base.entity.node.BaseNode
-import com.lugq.nodeadapterdemo.entity.LessonFirstNode
+import com.lugq.nodeadapterdemo.adapter.RootFooterNodeProvider
 
 class LessonAdapter : BaseNodeAdapter() {
     var listData: ArrayList<LessonFirstNode>? = null

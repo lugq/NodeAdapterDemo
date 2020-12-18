@@ -1,21 +1,16 @@
-package com.lugq.nodeadapterdemo.adapter
+package com.lugq.nodeadapterdemo.lesson
 
 import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.View
-import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ConvertUtils
 import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lugq.nodeadapterdemo.R
-import com.lugq.nodeadapterdemo.entity.FirstNodeJ
-import com.lugq.nodeadapterdemo.entity.LessonFirstNode
 import com.lugq.nodeadapterdemo.listener.SelectedListener
 import org.greenrobot.eventbus.EventBus
-import java.util.*
 
 
 class LessonProvider1 : BaseNodeProvider() {
