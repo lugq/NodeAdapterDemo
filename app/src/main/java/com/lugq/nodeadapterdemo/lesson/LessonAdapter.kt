@@ -7,10 +7,6 @@ import com.lugq.nodeadapterdemo.adapter.RootFooterNodeProvider
 class LessonAdapter : BaseNodeAdapter() {
     var listData: ArrayList<LessonFirstNode>? = null
 
-    companion object {
-        //const val TAG = "NodeTreeAdapter"
-    }
-
     init {
         addFullSpanNodeProvider(LessonProvider1())
         addFullSpanNodeProvider(LessonProvider2())
@@ -41,10 +37,6 @@ class LessonAdapter : BaseNodeAdapter() {
         listData?.clear()
         if (null != data)
             listData?.addAll(0, data)
-    }
-
-    fun loadRefresh(data: List<LessonFirstNode>) {
-        listData?.addAll(data)
     }
 
 }

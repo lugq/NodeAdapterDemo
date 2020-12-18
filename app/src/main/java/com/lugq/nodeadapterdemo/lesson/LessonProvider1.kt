@@ -1,7 +1,6 @@
 package com.lugq.nodeadapterdemo.lesson
 
 import android.util.Log
-import android.util.SparseBooleanArray
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.blankj.utilcode.util.ConvertUtils
@@ -9,16 +8,15 @@ import com.chad.library.adapter.base.entity.node.BaseNode
 import com.chad.library.adapter.base.provider.BaseNodeProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lugq.nodeadapterdemo.R
-import com.lugq.nodeadapterdemo.listener.SelectedListener
 import org.greenrobot.eventbus.EventBus
 
-
+/**
+ * 横向列表父级Item视图
+ */
 class LessonProvider1 : BaseNodeProvider() {
     companion object {
         const val TAG = "FirstProvider"
     }
-
-    private val mSelectedPositions: SparseBooleanArray = SparseBooleanArray()
 
     override val itemViewType: Int
         get() = 1
@@ -38,7 +36,6 @@ class LessonProvider1 : BaseNodeProvider() {
             val view = helper.getView<ConstraintLayout>(R.id.llroot)
             view.layoutParams.width = ConvertUtils.dp2px(205f)
         }
-       // helper.setText(R.id.tv_city, firstNode.title)
     }
 
     /****/
@@ -61,18 +58,12 @@ class LessonProvider1 : BaseNodeProvider() {
             // 每次
 
             getAdapter()?.collapse(position)
-        }else {
+        } else {
             EventBus.getDefault().post(data)
 
             getAdapter()?.expandAndCollapseOther(position)
 
         }
-
-
     }
 
-    private var mSelectedListener: SelectedListener? = null
-    fun setSelectedListener(listener: SelectedListener) {
-        mSelectedListener = listener
-    }
 }
